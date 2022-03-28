@@ -1,3 +1,8 @@
+<?php
+include 'messaging.php';
+//sendMsg("KWEENS Ltd","0787958407","Hello");
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
