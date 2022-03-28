@@ -1,3 +1,12 @@
+
+<?php
+require_once 'backend/connection.php';
+
+$firstName = $_SESSION['firstName'];
+$lastName = $_SESSION['lastName'];
+$username = $_SESSION['username'];
+$type = $_SESSION['type'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +45,7 @@
                         <span class="title">Customer</span>
                      </a> 
                </li>
+               <?php if($type == 2){ ?>
                <li>
                     <a href="#">
                        <span class="icon"><ion-icon name="wallet-outline"></ion-icon> </span>
@@ -48,6 +58,17 @@
                         <span class="title">Credit</span>
                     </a> 
                </li>
+               <?php }
+               if($type == 1){
+               ?>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon> </span>
+                        <span class="title">Teller</span>
+                     </a> 
+               </li>
+                
+                <?php } ?>
                <li>
                     <a href="#">
                         <span class="icon"><ion-icon name="list-outline"></ion-icon> </span>
@@ -61,7 +82,7 @@
                     </a> 
                </li>
                 <li>
-                    <a href="#">
+                    <a href="logout.php">
                         <span class="icon"> <ion-icon name="log-out-outline"></ion-icon></span>
                          <span class="title">Sign-Out</span>
                     </a> 

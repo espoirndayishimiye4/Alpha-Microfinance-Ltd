@@ -1,4 +1,13 @@
 <?php
+ session_start();
+ 
+ if($_SESSION['username'] == '')
+   { 
+ header('location:index.php');
+ }
+ else{
+?>
+<?php
 include 'header.php';
 ?>
 
@@ -15,7 +24,7 @@ include 'header.php';
             <img src="images/user.png"style="width:60px;height:70px;"/>
             
         </div>
-       Biganiro Espoir 
+       <?php echo $firstName." ".$lastName ?>
      </div>
 
        
@@ -28,7 +37,7 @@ include 'header.php';
               <div class="iconBx">
                 <ion-icon name="person-outline"></ion-icon></div>
             </div>
-         
+            <?php if($type == 1){ ?>
             <div class="card"> <div>
                <div class="numbers">100</div>
                 <div class="cardName">Tellers </div>
@@ -37,15 +46,6 @@ include 'header.php';
                 <ion-icon name="person-outline"></ion-icon>
             </div>
         </div> 
-        <div class="card"> 
-            <div>
-                <div class="numbers">10</div>
-                <div class="cardName">Transactions</div>
-            </div>
-            <div class="iconBx">
-                <ion-icon name="list-outline"></ion-icon>
-            </div>
-        </div>
         <div class="card">
             <div>
                 <div class="numbers">350 Frw</div>
@@ -55,6 +55,35 @@ include 'header.php';
                 <ion-icon name="wallet-outline"></ion-icon>
             </div>
         </div>
+        <?php } if($type == 2){ ?>
+            <div class="card"> <div>
+               <div class="numbers">100 Frw</div>
+                <div class="cardName">Debits </div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="person-outline"></ion-icon>
+            </div>
+        </div> 
+        <div class="card">
+            <div>
+                <div class="numbers">350 Frw</div>
+                <div class="cardName">Credits</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="wallet-outline"></ion-icon>
+            </div>
+        </div>
+        <?php } ?>
+        <div class="card"> 
+            <div>
+                <div class="numbers">10</div>
+                <div class="cardName">Transactions</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="list-outline"></ion-icon>
+            </div>
+        </div>
+        
        </div>
        <!-- Advanced Tables -->
  <div class="row">
@@ -175,3 +204,4 @@ $(document).ready(function(){
 <!-- Page JS Code -->
 <script src="assets/js/pages/db_pop.min.js"></script>
 </html>
+<?php } ?>

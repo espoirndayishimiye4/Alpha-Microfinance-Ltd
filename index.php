@@ -1,8 +1,56 @@
 <?php
-include 'messaging.php';
+//include 'messaging.php';
 //sendMsg("KWEENS Ltd","0787958407","Hello");
 ?>
+<?php 
+require_once 'backend/connection.php';
 
+session_start();
+$errors = array();
+
+if (isset($_POST['login'])) {
+
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $query = "SELECT * FROM `employee` WHERE username = '$username' AND status = 1 ";
+  $result = $connect->query($query);
+  
+  if($result->num_rows == 1) {
+
+  $password = md5($password);
+  $query2 = "SELECT * FROM `employee` WHERE username = '$username' AND password = '$password'  AND status = 1";
+  $result2 = $connect->query($query2);
+
+
+
+  if($result2->num_rows == 1) {
+
+    $data = mysqli_fetch_array($result2);
+    $firstName = $data['firstName'];
+    $lastName = $data['lastName'];
+    $username = $data['username'];
+    $type = $data['type']; 
+  
+
+    $_SESSION['firstName'] = $firstName;
+    $_SESSION['lastName'] = $lastName;
+    $_SESSION['username'] = $username;
+    $_SESSION['type'] = $type;
+
+  header('location:dashboard.php');
+  }
+  else{
+    $errors[] = "Incorrect username/password combination";
+  }
+  }
+  else{
+    $errors[] = "Username doesnot exists";
+  }
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +68,16 @@ include 'messaging.php';
     <div class="col-lg-2"> <CENTER><img src="images/logo1.png" alt="logo" srcset=""></CENTER> </div>
     <div class="col-lg-8"><CENTER><h1 style="color:#0B2752;margin-top:30px">BANKING SYSTEM</h1></CENTER></div>
   </div>
-</div><br><br>
+</div><br>
+
+<?php foreach ($errors as $key => $value) {
+  echo '<div class="alert alert-warning" role="alert">
+  <i class="glyphicon glyphicon-exclamation-sign"></i>
+  '.$value.'</div>';                    
+  }
+ ?>
+
+<br>
 <div class="container" style="background-color:#0B2752;color:#fff">
  <div class="row">
     <div class="col-md-6 mx-auto" style="border:2px">
@@ -35,7 +92,7 @@ include 'messaging.php';
             <input type="password" name="password" class="form-control" id="exampleInputPassword1"required>
         </div>
         <div class="row">
-        <div class="col-lg-2"> <button style="background-color:#fff;color:#0B2752" type="submit" class="btn btn-primary">Login</button> </div>
+        <div class="col-lg-2"> <button style="background-color:#fff;color:#0B2752" name="login" type="submit" class="btn btn-primary">Login</button> </div>
         <div class="col-lg-4"> <a href="forgotPassword.php" style="color:#fff"> Forgot Password? </a></div>
         </div>
       </form> 
