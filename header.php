@@ -47,7 +47,7 @@ $type = $_SESSION['type'];
                </li>
                <?php if($type == 2){ ?>
                <li>
-                    <a href="#">
+                    <a href="debit.php">
                        <span class="icon"><ion-icon name="wallet-outline"></ion-icon> </span>
                        <span class="title">Debit</span>
                     </a> 
