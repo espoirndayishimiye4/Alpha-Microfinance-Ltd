@@ -31,12 +31,13 @@ if (isset($_POST['login'])) {
     $lastName = $data['lastName'];
     $username = $data['username'];
     $type = $data['type']; 
-  
+    $id = $data['id']; 
 
     $_SESSION['firstName'] = $firstName;
     $_SESSION['lastName'] = $lastName;
     $_SESSION['username'] = $username;
     $_SESSION['type'] = $type;
+    $_SESSION['id'] = $id;
 
   header('location:dashboard.php');
   }

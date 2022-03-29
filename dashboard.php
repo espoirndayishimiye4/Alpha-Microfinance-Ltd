@@ -9,6 +9,30 @@
 ?>
 <?php
 include 'header.php';
+
+$customerQuery = "SELECT * FROM `customer` WHERE status = 1 ";
+$customerResult = $connect->query($customerQuery);
+$customer = $customerResult->num_rows;
+
+
+
+if($type == 2){
+
+    $creditQuery = "SELECT SUM(amount) as credit FROM `transaction` WHERE `type` = 'credit' AND `employeeId` = $id ";
+    $creditResult = $connect->query($creditQuery);
+    $data = mysqli_fetch_array($creditResult);
+    $credit = $data['credit'];
+
+    $debitQuery = "SELECT SUM(amount) as debit FROM `transaction` WHERE `type` = 'debit' AND `employeeId` = $id ";
+    $debitResult = $connect->query($debitQuery);
+    $data = mysqli_fetch_array($debitResult);
+    $debit = $data['debit'];
+
+    $transactionQuery = "SELECT * FROM `transaction` WHERE `employeeId` = $id ";
+    $transactionResult = $connect->query($transactionQuery);
+    $transaction = $transactionResult->num_rows;
+
+}
 ?>
 
 
@@ -31,7 +55,7 @@ include 'header.php';
        <div class="cardBox">
            <div class="card">
               <div>  
-                  <div class="numbers">1,599</div>
+                  <div class="numbers"><?php echo $customer; ?></div>
                   <div class="cardName">Customers</div>
               </div>
               <div class="iconBx">
@@ -56,27 +80,28 @@ include 'header.php';
             </div>
         </div>
         <?php } if($type == 2){ ?>
+            <div class="card">
+            <div>
+                <div class="numbers"><?php echo $credit; ?> Frw</div>
+                <div class="cardName">Credits</div>
+            </div>
+            <div class="iconBx">
+                <ion-icon name="wallet-outline"></ion-icon>
+            </div>
+            </div>
             <div class="card"> <div>
-               <div class="numbers">100 Frw</div>
+               <div class="numbers"><?php echo $debit; ?> Frw</div>
                 <div class="cardName">Debits </div>
             </div>
             <div class="iconBx">
                 <ion-icon name="person-outline"></ion-icon>
             </div>
         </div> 
-        <div class="card">
-            <div>
-                <div class="numbers">350 Frw</div>
-                <div class="cardName">Credits</div>
-            </div>
-            <div class="iconBx">
-                <ion-icon name="wallet-outline"></ion-icon>
-            </div>
-        </div>
+        
         <?php } ?>
         <div class="card"> 
             <div>
-                <div class="numbers">10</div>
+                <div class="numbers"><?php echo $transaction; ?></div>
                 <div class="cardName">Transactions</div>
             </div>
             <div class="iconBx">
@@ -91,7 +116,12 @@ include 'header.php';
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Customers
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    Customers
+                                </div>
+                                
+                            </div>   
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -106,29 +136,46 @@ include 'header.php';
                                         <th > National Id</th>
                                         <th > Phone Number</th>
                                         <th >Date</th>
+                                        <th></th>
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                   
-                                    <tr>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a  </td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-
-                                      
-                                    </tr>
-                                 
+                                <?php   $number =1;
+                                        $customersQuery = "SELECT * FROM `customer`";
+                                        $customersResult = $connect->query($customersQuery);
+                                        while( $data = mysqli_fetch_array($customersResult)){
+                                        $accountNumber = $data['accountNumber'];
+                                        $firstName = $data['firstName'];
+                                        $lastName = $data['lastName'];
+                                        $nationalId = $data['nationalId'];
+                                        $mobileNumber = $data['mobileNumber'];
+                                        $dateTime = $data['dateTime'];
+                                        ?>
+                                    <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                        <tr>
+                                            <td><?php echo $number ?></td>
+                                            <td><?php echo $accountNumber ?></td>
+                                            <td><?php echo $firstName ?></td>
+                                            <td><?php echo $lastName ?></td>
+                                            <td ><?php echo $nationalId ?></td>
+                                            <td><?php echo $mobileNumber ?></td>
+                                            <td><?php echo $dateTime ?></td>
+                                            <td> 
+                                            <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                                <div class="iconBx">
+                                                    <ion-icon style="font-size:25px" name="eye-outline"></ion-icon>
+                                                </div>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    </a>
+                                 <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
                             
                         </div>
                     </div>

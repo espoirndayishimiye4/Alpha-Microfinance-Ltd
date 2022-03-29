@@ -6,6 +6,7 @@ $firstName = $_SESSION['firstName'];
 $lastName = $_SESSION['lastName'];
 $username = $_SESSION['username'];
 $type = $_SESSION['type'];
+$id = $_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,35 +35,36 @@ $type = $_SESSION['type'];
                     </a> 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="dashboard.php">
                         <span class="icon"><ion-icon name="home-outline"></ion-icon> </span>
                         <span class="title">Dashboard</span>
                     </a> 
                </li>
                 <li>
-                    <a href="#">
+                    <a href="customer.php">
                         <span class="icon"><ion-icon name="person-outline"></ion-icon> </span>
                         <span class="title">Customer</span>
                      </a> 
                </li>
                <?php if($type == 2){ ?>
+                <li>
+                    <a href="credit.php">
+                        <span class="icon"> <ion-icon name="wallet-outline"></ion-icon></span>
+                        <span class="title">Credit</span>
+                    </a> 
+               </li>
                <li>
                     <a href="debit.php">
                        <span class="icon"><ion-icon name="wallet-outline"></ion-icon> </span>
                        <span class="title">Debit</span>
                     </a> 
                </li>
-               <li>
-                    <a href="#">
-                        <span class="icon"> <ion-icon name="wallet-outline"></ion-icon></span>
-                        <span class="title">Credit</span>
-                    </a> 
-               </li>
+               
                <?php }
                if($type == 1){
                ?>
                 <li>
-                    <a href="#">
+                    <a href="teller.php">
                         <span class="icon"><ion-icon name="person-outline"></ion-icon> </span>
                         <span class="title">Teller</span>
                      </a> 
@@ -70,13 +72,13 @@ $type = $_SESSION['type'];
                 
                 <?php } ?>
                <li>
-                    <a href="#">
+                    <a href="report.php">
                         <span class="icon"><ion-icon name="list-outline"></ion-icon> </span>
                         <span class="title">Report</span>
                     </a> 
                </li>
                 <li>
-                    <a href="#">
+                    <a href="password.php">
                         <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon> </span>
                         <span class="title">Change Password</span>
                     </a> 

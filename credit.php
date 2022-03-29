@@ -30,7 +30,7 @@ include 'header.php';
      <div class="container">
   <div class="row">
     
-    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Create Account</h1></div>
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Credit Account</h1></div>
   </div>
 </div><br>
 
@@ -47,51 +47,20 @@ include 'header.php';
     <div class="col-lg-12 mx-auto" style="border:2px">
         <form action="#" method="POST">
             <div class="row">
-                <div class="col-lg-4 ">
-                    <label  class="form-label">First Name</label>
-                    <input type="text" name="username" class="form-control"  autocomplete="off" required placeholder="Ex:Kagabo">
-                </div>
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Last Name</label>
-                    <input type="text" name="password" class="form-control" required placeholder="Ex:Ivan">
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Date of Birth</label>
-                    <input type="date" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
-                </div>
-                <div class="col-lg-4 ">
-                    <label  class="form-label">National Id</label>
-                    <input type="number" name="password" class="form-control" required placeholder="Ex: 11992800...">
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Photo</label>
+                <div class="col-lg-5 mb-4 mt-4">
+                    <label  class="form-label">Account Number</label>
                     <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
                 </div>
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Address</label>
-                    <input type="text" name="password" class="form-control" required placeholder="Ex: Kigali/Rwanda">
+                <div class="col-lg-5 mb-3">
+                    <label  class="form-label">Amount (Frw)</label>
+                    <input type="number" name="password" class="form-control" required placeholder="Ex: 10000">
                 </div>
-
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Mobile Number</label>
-                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
-                </div>
-                <br>
+            <br>
                 <div class="col-lg-2"> 
-                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Save Account</button> 
+                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Debit</button> 
                 </div>
-
             </div>
        </form> 
-        <br> 
         <br> 
     </div>
 </div>

@@ -27,159 +27,94 @@ include 'header.php';
        <?php echo $firstName." ".$lastName ?>
      </div>
 
-    <!-- Main Container -->
-<main id="main-container">
-                   <!-- Page Content -->
-                <div class="content">
-                     
-                    <div class="row">
-                        <div class="col-xl-4">
-                            <!-- Subscribe -->
-                            
-                            <!-- END Subscribe -->
+     <div class="container">
+  <div class="row">
+    
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Debit Account</h1></div>
+  </div>
+</div><br>
 
-                            <!-- Instructor -->
-                            <a class="block block-rounded block-link-shadow text-center" href="javascript:void(0)">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">
-                                        <i class="fa fa-fw fa-user"></i>
-                                        GBU Menber
-                                    </h3>
-                                </div>
-                                <div class="block-content block-content-full">
-                                    <div class="push">
-                                        <img class="img-avatar" src="../assets/media/avatars/avatar10.jpg" alt="">
-                                    </div>
-                                    <div class="font-w600 mb-5">Emmy Karangwa</div>
-                                    <div class="text-muted">0786639530</div>
-                                </div>
-                            </a>
-                            <!-- END Instructor -->
+<?php /*foreach ($errors as $key => $value) {
+  echo '<div class="alert alert-warning" role="alert">
+  <i class="glyphicon glyphicon-exclamation-sign"></i>
+  '.$value.'</div>';                   
+  }*/
+ ?>
 
-                            
-                            <!-- END Course Info -->
+<br>
+
+ <div class="row">
+    <div class="col-lg-12 mx-auto" style="border:2px">
+        <form action="#" method="POST">
+            <div class="row">
+                <div class="col-lg-5 mb-4 mt-4">
+                    <label  class="form-label">Account Number</label>
+                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                </div>
+                <div class="col-lg-5 mb-3">
+                    <label  class="form-label">Amount (Frw)</label>
+                    <input type="number" name="password" class="form-control" required placeholder="Ex: 10000">
+                </div>
+            <br>
+            <br>
+                <div class="col-lg-2"> 
+                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Debit</button> 
+                </div>
+            </div>
+       </form> 
+        <br> 
+    </div>
+</div>
+
+
+       <!-- Advanced Tables -->
+ <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Customers
                         </div>
-                        <div class="col-xl-8">
-                             <!-- Page Content -->
-                <div class="content">
-                    
-
-                    <!-- Results -->
-                    <div class="block">
-                        <ul class="nav nav-tabs nav-tabs-block" data-toggle="tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#search-classic">Details</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#search-photos">Connected Service</a>
-                            </li>
-                           
-                        </ul>
-                        <div class="block-content block-content-full tab-content overflow-hidden">
-                            <!-- Classic -->
-                            <div class="tab-pane fade show active" id="search-classic" role="tabpanel">
-                                
-                                <div class="row items-push">
-                                 <div class="col-12">
-                                
-                                <div class="tab-content ml-1" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-                                        
-
-                                        <div class="row">
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">Full Name</label>
-                                            </div>
-                                            <div class="col-md-8 col-6">
-                                                Emmy Karangwa
-                                            </div>
-                                        </div>
-                                        <hr />
-
-                                        <div class="row">
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">Birth Date</label>
-                                            </div>
-                                            <div class="col-md-8 col-6">
-                                                March 22, 1994.
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        
-                                        
-                                        <div class="row">
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">Email Address</label>
-                                            </div>
-                                            <div class="col-md-8 col-6">
-                                                Emmy Karangwa@gamil.com
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="row">
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">Something</label>
-                                            </div>
-                                            <div class="col-md-8 col-6">
-                                                Something
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div class="row">
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">Something</label>
-                                            </div>
-                                            <div class="col-md-8 col-6">
-                                                Something
-                                            </div>
-                                        </div>
-                                        <hr />
-
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                             
-                                </div>
-                                                   <div class="col-md-6 col-offset-6">
-        <button type="submit" class="btn btn-primary"><a href="GUB-memberform.php" style="color: white">Update Info</a> </button>
-   </div>
-           
-                            </div>
-                            <!-- END Classic -->
-
-                            <!-- Photos -->
-                            <div class="tab-pane fade" id="search-photos" role="tabpanel">
-                                <div class="font-size-h3 font-w600 py-30 mb-20 text-center border-b">
-                                    <span class="text-primary font-w700">1</span> service found for 
-                                </div>
-                                <div class="row gutters-tiny">
-                                    <div class="col-md-6 col-lg-4 push">
-                                        <img class="img-fluid" src="../assets/media/photos/photo1.jpg" alt="">
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 push">
-                                        <img class="img-fluid" src="../assets/media/photos/photo2.jpg" alt="">
-                                    </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
                                
-                                </div>
+                                    <tr>
+                                        <th >#</th>
+                                        <th> Account Number</th>
+                                        <th > First Name</th>
+                                        <th > Last Name</th>
+                                        <th > National Id</th>
+                                        <th > Phone Number</th>
+                                        <th >Date</th>
+
+                                       
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody>
+                                   
+                                    <tr>
+                                        <td class="text-center">a</td>
+                                        <td class="text-center">a  </td>
+                                        <td class="text-center">a</td>
+                                        <td class="text-center">a</td>
+                                        <td class="text-center">a</td>
+                                        <td class="text-center">a</td>
+                                        <td class="text-center">a</td>
+
+                                      
+                                    </tr>
+                                 
+                                </tbody>
+                                </table>
                             </div>
-                            <!-- END Photos -->
-
-                         
+<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
+                            
                         </div>
                     </div>
-                    <!-- END Results -->
-                </div>
-                <!-- END Page Content -->
-                      
-                        </div>
-                    </div>
-                </div>
-
-            
-            </main>
-            <!-- END Main Container -->
-
+                    <!--End Advanced Tables -->
            
 
      </div>

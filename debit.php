@@ -30,7 +30,7 @@ include 'header.php';
      <div class="container">
   <div class="row">
     
-    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Account Debit</h1></div>
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Debit Account</h1></div>
   </div>
 </div><br>
 
@@ -42,28 +42,30 @@ include 'header.php';
  ?>
 
 <br>
-<div class="container" style="background-color:#0B2752;color:#fff">
+
  <div class="row">
-    <div class="col-md-6 mx-auto" style="border:2px">
+    <div class="col-lg-12 mx-auto" style="border:2px">
         <form action="#" method="POST">
-        <div class="mb-4 mt-4">
-            <label for="exampleInputEmail1" class="form-label">Account Number</label>
-            <input type="email" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="off" required>
-          
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Amount</label>
-            <input type="password" name="password" class="form-control" id="exampleInputPassword1"required>
-        </div>
-        <br>
-        <div class="row">
-        <div class="col-lg-2"> <button style="background-color:#fff;color:#0B2752" name="login" type="submit" class="btn btn-primary">Debit</button> </div>
-        </div>
-      </form> 
+            <div class="row">
+                <div class="col-lg-5 mb-4 mt-4">
+                    <label  class="form-label">Account Number</label>
+                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                </div>
+                <div class="col-lg-5 mb-3">
+                    <label  class="form-label">Amount (Frw)</label>
+                    <input type="number" name="password" class="form-control" required placeholder="Ex: 10000">
+                </div>
+            <br>
+            <br>
+                <div class="col-lg-2"> 
+                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Debit</button> 
+                </div>
+            </div>
+       </form> 
         <br> 
     </div>
 </div>
-</div>
+
 
        <!-- Advanced Tables -->
  <div class="row">
