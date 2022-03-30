@@ -9,6 +9,23 @@
 ?>
 <?php
 include 'header.php';
+if (isset($_POST['credit'])) {
+    $accountNumber = $_POST['accountNumber'];
+    $amount = $_POST['amount'];
+    $category = 'credit';
+
+    $query = "INSERT INTO `transaction` (`accountNumber`, `type`, `employeeId`, `amount`) 
+    VALUES ('$accountNumber', '$category', '$id', '$amount')";
+    $result = $connect->query($query);
+
+    $creditQuery = "SELECT `mobileNumber` FROM `customer` WHERE `accountNumber` = $accountNumber";
+    $creditResult = $connect->query($creditQuery);
+    $data = mysqli_fetch_array($creditResult);
+    $mobileNumber = $data['mobileNumber'];
+
+    $msg="Dear Customer, Your Account ".$accountNumber." Have been Credited ".$amount." Frw thank you for banking with us!";
+    sendMsg("Alpha M Ltd","$mobileNumber","$msg");
+}
 ?>
 
 
@@ -30,7 +47,7 @@ include 'header.php';
      <div class="container">
   <div class="row">
     
-    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Credit Account</h1></div>
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Credit Account (deposit)</h1></div>
   </div>
 </div><br>
 
@@ -49,15 +66,15 @@ include 'header.php';
             <div class="row">
                 <div class="col-lg-5 mb-4 mt-4">
                     <label  class="form-label">Account Number</label>
-                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <input type="number" name="accountNumber" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
                 </div>
                 <div class="col-lg-5 mb-3">
                     <label  class="form-label">Amount (Frw)</label>
-                    <input type="number" name="password" class="form-control" required placeholder="Ex: 10000">
+                    <input type="number" name="amount" class="form-control" required placeholder="Ex: 10000">
                 </div>
             <br>
                 <div class="col-lg-2"> 
-                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Debit</button> 
+                    <button style="background-color:#0B2752;color:#fff" name="credit" type="submit" class="btn btn-primary">Credit</button> 
                 </div>
             </div>
        </form> 
@@ -66,13 +83,18 @@ include 'header.php';
 </div>
 
 
-       <!-- Advanced Tables -->
+        <!-- Advanced Tables -->
  <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Customers
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    Customers
+                                </div>
+                            
+                            </div>   
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -82,35 +104,41 @@ include 'header.php';
                                     <tr>
                                         <th >#</th>
                                         <th> Account Number</th>
-                                        <th > First Name</th>
-                                        <th > Last Name</th>
-                                        <th > National Id</th>
-                                        <th > Phone Number</th>
+                                        <th > Transaction</th>
+                                        <th > Amout</th>
                                         <th >Date</th>
+                                        
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                   
-                                    <tr>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a  </td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-
-                                      
-                                    </tr>
-                                 
+                                <?php   $number =1;
+                                        $creQuery = "SELECT * FROM `transaction` ORDER BY `dateTime` DESC;";
+                                        $creResult = $connect->query($creQuery);
+                                        while( $data = mysqli_fetch_array($creResult)){
+                                        $accountNumber = $data['accountNumber'];
+                                        $transaction = $data['type'];
+                                        $amount = $data['amount'];
+                                        $dateTime = $data['dateTime'];
+                                        
+                                        ?>
+                                    
+                                        <tr>
+                                            <td><?php echo $number ?></td>
+                                            <td><?php echo $accountNumber ?></td>
+                                            <td><?php echo $transaction ?></td>
+                                            <td><?php echo $amount ?></td>
+                                            <td ><?php echo $dateTime ?></td>
+                                             
+                                            
+                                        </tr>
+                                    
+                                 <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
-                            
                         </div>
                     </div>
                     <!--End Advanced Tables -->

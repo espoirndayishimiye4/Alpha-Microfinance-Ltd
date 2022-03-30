@@ -1,7 +1,7 @@
 
 <?php
-require_once 'backend/connection.php';
-
+include 'backend/connection.php';
+include 'backend/messaging.php';
 $firstName = $_SESSION['firstName'];
 $lastName = $_SESSION['lastName'];
 $username = $_SESSION['username'];

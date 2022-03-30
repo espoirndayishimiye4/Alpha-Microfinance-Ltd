@@ -9,6 +9,11 @@
 ?>
 <?php
 include 'header.php';
+if (isset($_POST['password'])) {
+    $password1 = $_POST['password1'];
+    $password2 = $_POST['password2'];
+    $password2 = $_POST['password3'];
+}
 ?>
 
 
@@ -49,15 +54,15 @@ include 'header.php';
             <div class="row">
                 <div class="col-lg-5 mb-4 mt-4">
                     <label  class="form-label">Enter Old Password</label>
-                    <input type="password" name="username" class="form-control"  autocomplete="off" required >
+                    <input type="password" name="password1" class="form-control"  autocomplete="off" required >
                 
                     <label  class="form-label">Enter New Password</label>
-                    <input type="password" name="password" class="form-control" required >
+                    <input type="password" name="password2" class="form-control" required >
 
                     <label  class="form-label">Comfirm New Password</label>
-                    <input type="password" name="password" class="form-control" required >
-               <br>
-                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Change Password</button> 
+                    <input type="password" name="password3" class="form-control" required >
+                    <br>
+                    <button style="background-color:#0B2752;color:#fff" name="password" type="submit" class="btn btn-primary">Change Password</button> 
                 </div>
             </div>
        </form> 

@@ -27,15 +27,22 @@ include 'header.php';
        <?php echo $firstName." ".$lastName ?>
      </div>
 
+     <div class="row">
+    
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">System Report</h1></div>
+  </div>
        
-       
-       <!-- Advanced Tables -->
+        <!-- Advanced Tables -->
  <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Customers
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    Customers
+                                </div>
+                            </div>   
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -49,30 +56,62 @@ include 'header.php';
                                         <th > Last Name</th>
                                         <th > National Id</th>
                                         <th > Phone Number</th>
+                                        <th > Balance </th>
                                         <th >Date</th>
+                                        <th></th>
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                   
-                                    <tr>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a  </td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
+                                <?php   
+                                        
+                                
+                                        $number =1;
+                                        $customersQuery = "SELECT * FROM `customer`";
+                                        $customersResult = $connect->query($customersQuery);
+                                        while( $data = mysqli_fetch_array($customersResult)){
+                                        $accountNumber = $data['accountNumber'];
+                                        $firstName = $data['firstName'];
+                                        $lastName = $data['lastName'];
+                                        $nationalId = $data['nationalId'];
+                                        $mobileNumber = $data['mobileNumber'];
+                                        $dateTime = $data['dateTime'];
 
-                                      
-                                    </tr>
-                                 
+                                        $crQuery = "SELECT SUM(`amount`) as credit FROM `transaction` WHERE `type` = 'credit' AND `accountNumber` = '$accountNumber'";
+                                        $crResult = $connect->query($crQuery);
+                                        $data = mysqli_fetch_array($crResult);
+                                        $credit = $data['credit'];
+                                        
+                                        $debQuery = "SELECT SUM(`amount`) as debit FROM `transaction` WHERE `type` = 'debit' AND `accountNumber` = '$accountNumber'";
+                                        $debResult = $connect->query($debQuery);
+                                        $data = mysqli_fetch_array($debResult);
+                                        $debit = $data['debit'];
+                                        ?>
+                                   
+                                        <tr>
+                                            <td><?php echo $number ?></td>
+                                            <td><?php echo $accountNumber ?></td>
+                                            <td><?php echo $firstName ?></td>
+                                            <td><?php echo $lastName ?></td>
+                                            <td ><?php echo $nationalId ?></td>
+                                            <td><?php echo $mobileNumber ?></td>
+                                            <td><?php echo $credit - $debit; ?></td>
+                                            <td><?php echo $dateTime ?></td>
+                                            <td> 
+                                            <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                                <div class="iconBx">
+                                                    <ion-icon style="font-size:25px" name="eye-outline"></ion-icon>
+                                                </div>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    
+                                 <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
                             
                         </div>
                     </div>

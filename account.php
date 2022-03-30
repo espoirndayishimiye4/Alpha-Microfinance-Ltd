@@ -9,6 +9,32 @@
 ?>
 <?php
 include 'header.php';
+
+$customerQuery = "SELECT * FROM `customer` WHERE status = 1 ";
+$customerResult = $connect->query($customerQuery);
+$customer = $customerResult->num_rows;
+
+if (isset($_POST['account'])) {
+   
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $dateOfBirth = $_POST['dateOfBirth'];
+    $nationalId = $_POST['nationalId'];
+    $photo = $_POST['photo'];
+    $address = $_POST['address'];
+    $mobileNumber = $_POST['mobileNumber'];
+
+    $accountNumber = rand(100000,999999);
+    
+
+    $query = "INSERT INTO `customer` (`accountNumber`, `firstName`, `lastName`, `dateOfBirth`, `nationalId`, `photo`, `address`, `mobileNumber`) 
+    VALUES ('$accountNumber', '$firstName', '$lastName', '$dateOfBirth', '$nationalId', '$photo', '$address', '$mobileNumber')";
+    $result = $connect->query($query);
+
+    $msg="Dear ".$firstName." ".$lastName." Your Account Number is ".$accountNumber." Thank You!";
+    sendMsg("Alpha M Ltd","$mobileNumber","$msg");
+    
+}
 ?>
 
 
@@ -49,44 +75,44 @@ include 'header.php';
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">First Name</label>
-                    <input type="text" name="username" class="form-control"  autocomplete="off" required placeholder="Ex:Kagabo">
+                    <input type="text" name="firstName" class="form-control"  autocomplete="off" required placeholder="Ex:Kagabo">
                 </div>
                 <div class="col-lg-4 ">
                     <label  class="form-label">Last Name</label>
-                    <input type="text" name="password" class="form-control" required placeholder="Ex:Ivan">
+                    <input type="text" name="lastName" class="form-control" required placeholder="Ex:Ivan">
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">Date of Birth</label>
-                    <input type="date" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <input type="date" name="dateOfBirth" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
                 </div>
                 <div class="col-lg-4 ">
                     <label  class="form-label">National Id</label>
-                    <input type="number" name="password" class="form-control" required placeholder="Ex: 11992800...">
+                    <input type="number" name="nationalId" class="form-control" required placeholder="Ex: 11992800...">
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">Photo</label>
-                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <input type="text" name="photo" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
                 </div>
                 <div class="col-lg-4 ">
                     <label  class="form-label">Address</label>
-                    <input type="text" name="password" class="form-control" required placeholder="Ex: Kigali/Rwanda">
+                    <input type="text" name="address" class="form-control" required placeholder="Ex: Kigali/Rwanda">
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">Mobile Number</label>
-                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <input type="number" name="mobileNumber" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
                 </div>
                 <br>
                 <div class="col-lg-2"> 
-                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Save Account</button> 
+                    <button style="background-color:#0B2752;color:#fff" name="account" type="submit" class="btn btn-primary">Save Account</button> 
                 </div>
 
             </div>
@@ -97,13 +123,18 @@ include 'header.php';
 </div>
 
 
-       <!-- Advanced Tables -->
+      <!-- Advanced Tables -->
  <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Customers
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    Customers
+                                </div>
+                            
+                            </div>   
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -118,29 +149,46 @@ include 'header.php';
                                         <th > National Id</th>
                                         <th > Phone Number</th>
                                         <th >Date</th>
+                                        <th></th>
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                   
-                                    <tr>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a  </td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-
-                                      
-                                    </tr>
-                                 
+                                <?php   $number =1;
+                                        $customersQuery = "SELECT * FROM `customer`";
+                                        $customersResult = $connect->query($customersQuery);
+                                        while( $data = mysqli_fetch_array($customersResult)){
+                                        $accountNumber = $data['accountNumber'];
+                                        $firstName = $data['firstName'];
+                                        $lastName = $data['lastName'];
+                                        $nationalId = $data['nationalId'];
+                                        $mobileNumber = $data['mobileNumber'];
+                                        $dateTime = $data['dateTime'];
+                                        ?>
+                                    <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                        <tr>
+                                            <td><?php echo $number ?></td>
+                                            <td><?php echo $accountNumber ?></td>
+                                            <td><?php echo $firstName ?></td>
+                                            <td><?php echo $lastName ?></td>
+                                            <td ><?php echo $nationalId ?></td>
+                                            <td><?php echo $mobileNumber ?></td>
+                                            <td><?php echo $dateTime ?></td>
+                                            <td> 
+                                            <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                                <div class="iconBx">
+                                                    <ion-icon style="font-size:25px" name="eye-outline"></ion-icon>
+                                                </div>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    </a>
+                                 <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
                             
                         </div>
                     </div>
