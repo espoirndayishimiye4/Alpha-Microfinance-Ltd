@@ -9,6 +9,30 @@
 ?>
 <?php
 include 'header.php';
+if (isset($_GET['accNumber'])) {
+    $accNumber=$_GET['accNumber'];
+    $accQuery = "SELECT * FROM `customer` WHERE accountNumber = $accNumber";
+    $accResult = $connect->query($accQuery);
+    $data = mysqli_fetch_array($accResult);
+
+    $accountNumber = $data['accountNumber'];
+    $dateOfBirth = $data['dateOfBirth'];
+    $fName = $data['firstName'];
+    $lName = $data['lastName'];
+    $nationalId = $data['nationalId'];
+    $mobileNumber = $data['mobileNumber'];
+    $address = $data['address'];
+
+    $crQuery = "SELECT SUM(`amount`) as credit FROM `transaction` WHERE `type` = 'credit' AND `accountNumber` = '$accNumber'";
+    $crResult = $connect->query($crQuery);
+    $data = mysqli_fetch_array($crResult);
+    $credit = $data['credit'];
+    
+    $debQuery = "SELECT SUM(`amount`) as debit FROM `transaction` WHERE `type` = 'debit' AND `accountNumber` = '$accNumber'";
+    $debResult = $connect->query($debQuery);
+    $data = mysqli_fetch_array($debResult);
+    $debit = $data['debit'];
+    }
 ?>
 
 
@@ -30,7 +54,7 @@ include 'header.php';
      <div class="container">
   <div class="row">
     
-    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Debit Account</h1></div>
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Customer Profile</h1></div>
   </div>
 </div><br>
 
@@ -47,19 +71,35 @@ include 'header.php';
     <div class="col-lg-12 mx-auto" style="border:2px">
         <form action="#" method="POST">
             <div class="row">
-                <div class="col-lg-5 mb-4 mt-4">
-                    <label  class="form-label">Account Number</label>
-                    <input type="number" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                <div class="col-lg-2 mb-4 mt-4">
                 </div>
-                <div class="col-lg-5 mb-3">
-                    <label  class="form-label">Amount (Frw)</label>
-                    <input type="number" name="password" class="form-control" required placeholder="Ex: 10000">
+                <div class="col-lg-3 mb-4 mt-4">
+                <div class="card">
+                    <img src="images/logo2.png" alt="Avatar" style="width:100%">
+                    <div class="container">
+                        <h4><b><?php echo $fName." ".$lName; ?></b></h4>
+                        <p>Customer</p>
+                    </div>
+                    </div>
                 </div>
-            <br>
-            <br>
-                <div class="col-lg-2"> 
-                    <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Debit</button> 
+                <div class="col-lg-3 ">
+                        <h4><b>Account Number</b></h4> <hr>
+                        <h4><b>Date Of Birth</b></h4> <hr>
+                        <h4><b>National Id</b></h4> <hr>
+                        <h4><b>Address</b></h4> <hr>
+                        <h4><b>Mobile Number</b></h4> <hr>
+                        <h4><b>Balance</b></h4> 
+                       
                 </div>
+                <div class="col-lg-3 ">
+                        <h4><?php echo $accNumber; ?></h4> <hr>
+                        <h4><?php echo $dateOfBirth; ?></h4> <hr>
+                        <h4><?php echo $nationalId; ?></h4> <hr>
+                        <h4><?php echo $address; ?></h4> <hr>
+                        <h4><?php echo $mobileNumber; ?></h4> <hr>
+                        <h4><?php echo $credit - $debit; ?></h4>  
+                </div>
+              
             </div>
        </form> 
         <br> 
@@ -73,7 +113,13 @@ include 'header.php';
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Customers
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    Customer Transactions
+                                </div>
+                                <div class="col-lg-2">
+                                </div> 
+                            </div>   
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -88,29 +134,46 @@ include 'header.php';
                                         <th > National Id</th>
                                         <th > Phone Number</th>
                                         <th >Date</th>
+                                        <th></th>
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                   
-                                    <tr>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a  </td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-
-                                      
-                                    </tr>
-                                 
+                                <?php   $number =1;
+                                        $customersQuery = "SELECT * FROM `customer`";
+                                        $customersResult = $connect->query($customersQuery);
+                                        while( $data = mysqli_fetch_array($customersResult)){
+                                        $accountNumber = $data['accountNumber'];
+                                        $firstName = $data['firstName'];
+                                        $lastName = $data['lastName'];
+                                        $nationalId = $data['nationalId'];
+                                        $mobileNumber = $data['mobileNumber'];
+                                        $dateTime = $data['dateTime'];
+                                        ?>
+                                    <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                        <tr>
+                                            <td><?php echo $number ?></td>
+                                            <td><?php echo $accountNumber ?></td>
+                                            <td><?php echo $firstName ?></td>
+                                            <td><?php echo $lastName ?></td>
+                                            <td ><?php echo $nationalId ?></td>
+                                            <td><?php echo $mobileNumber ?></td>
+                                            <td><?php echo $dateTime ?></td>
+                                            <td> 
+                                            <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                                <div class="iconBx">
+                                                    <ion-icon style="font-size:25px" name="eye-outline"></ion-icon>
+                                                </div>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    </a>
+                                 <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
                             
                         </div>
                     </div>

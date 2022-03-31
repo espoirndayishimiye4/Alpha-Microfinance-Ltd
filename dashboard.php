@@ -33,6 +33,25 @@ if($type == 2){
     $transaction = $transactionResult->num_rows;
 
 }
+else{
+    $transactionQuery = "SELECT * FROM `transaction`";
+    $transactionResult = $connect->query($transactionQuery);
+    $transaction = $transactionResult->num_rows;
+
+    $tellerQuery = "SELECT * FROM `employee` WHERE type = 2";
+    $tellerResult = $connect->query($tellerQuery);
+    $teller = $tellerResult->num_rows;
+
+    $creditQuery = "SELECT SUM(amount) as credit FROM `transaction` WHERE `type` = 'credit' ";
+    $creditResult = $connect->query($creditQuery);
+    $data = mysqli_fetch_array($creditResult);
+    $credit = $data['credit'];
+
+    $debitQuery = "SELECT SUM(amount) as debit FROM `transaction` WHERE `type` = 'debit' ";
+    $debitResult = $connect->query($debitQuery);
+    $data = mysqli_fetch_array($debitResult);
+    $debit = $data['debit'];
+}
 ?>
 
 
@@ -63,7 +82,7 @@ if($type == 2){
             </div>
             <?php if($type == 1){ ?>
             <div class="card"> <div>
-               <div class="numbers">100</div>
+               <div class="numbers"><?php echo $teller; ?></div>
                 <div class="cardName">Tellers </div>
             </div>
             <div class="iconBx">
@@ -72,7 +91,7 @@ if($type == 2){
         </div> 
         <div class="card">
             <div>
-                <div class="numbers">350 Frw</div>
+                <div class="numbers"><?php echo $credit - $debit; ?></div>
                 <div class="cardName">Balance</div>
             </div>
             <div class="iconBx">

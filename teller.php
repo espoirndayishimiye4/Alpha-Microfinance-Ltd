@@ -27,15 +27,25 @@ include 'header.php';
        <?php echo $firstName." ".$lastName ?>
      </div>
 
+     <div class="row">
+    
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Teller's List</h1></div>
+  </div>
        
-       
-       <!-- Advanced Tables -->
+        <!-- Advanced Tables -->
  <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Customers
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    Tellers
+                                </div>
+                                <div class="col-lg-2">
+                                <a href="addTeller.php"> <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Add Teller</button> </a>
+                                </div> 
+                            </div>   
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -44,35 +54,41 @@ include 'header.php';
                                
                                     <tr>
                                         <th >#</th>
-                                        <th> Account Number</th>
                                         <th > First Name</th>
                                         <th > Last Name</th>
-                                        <th > National Id</th>
                                         <th > Phone Number</th>
                                         <th >Date</th>
+                                        
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
+                                <?php   $number =1;
+                                        $tellerQuery = "SELECT * FROM `employee` WHERE type = 2";
+                                        $tellerResult = $connect->query($tellerQuery);
+                                        while( $data = mysqli_fetch_array($tellerResult)){
+                                        
+                                        $firstName = $data['firstName'];
+                                        $lastName = $data['lastName'];
+                                        $phoneNumber = $data['phoneNumber'];
+                                        $dateTime = $data['dateTime'];
+                                        ?>
+                                    
+                                        <tr>
+                                            <td><?php echo $number ?></td>
+                                            <td><?php echo $firstName ?></td>
+                                            <td><?php echo $lastName ?></td>
+                                            <td><?php echo $phoneNumber	 ?></td>
+                                            <td><?php echo $dateTime ?></td>
+                                       
+                                        </tr>
                                    
-                                    <tr>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a  </td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-                                        <td class="text-center">a</td>
-
-                                      
-                                    </tr>
-                                 
+                                 <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-<input type="submit" class="btn btn-info" name="print" value="Print" onclick="window.print()">
                             
                         </div>
                     </div>

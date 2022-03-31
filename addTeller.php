@@ -10,28 +10,21 @@
 <?php
 include 'header.php';
 
-$customerQuery = "SELECT * FROM `customer` WHERE status = 1 ";
-$customerResult = $connect->query($customerQuery);
-$customer = $customerResult->num_rows;
-
 if (isset($_POST['account'])) {
    
-    $fName = $_POST['firstName'];
-    $lName = $_POST['lastName'];
-    $dateOfBirth = $_POST['dateOfBirth'];
-    $nationalId = $_POST['nationalId'];
-    $photo = $_POST['photo'];
-    $address = $_POST['address'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $username = $_POST['username'];
     $mobileNumber = $_POST['mobileNumber'];
 
-    $accountNumber = rand(100000,999999);
-    
+    $password = rand(100000,999999);
+    $passwordencry = md5($password);
 
-    $query = "INSERT INTO `customer` (`accountNumber`, `firstName`, `lastName`, `dateOfBirth`, `nationalId`, `photo`, `address`, `mobileNumber`) 
-    VALUES ('$accountNumber', '$fName', '$lName', '$dateOfBirth', '$nationalId', '$photo', '$address', '$mobileNumber')";
+    $query = "INSERT INTO `employee` (`firstName`, `lastName`, `username`, `password`, `type`, `phoneNumber`) 
+    VALUES ('$firstName', '$lastName', '$username', '$passwordencry', '2', '$mobileNumber')";
     $result = $connect->query($query);
 
-    $msg="Dear ".$fName." ".$lName." Your Account Number is ".$accountNumber." Thank You!";
+    $msg="Dear Employee Your Username is: ".$username." Your Password is ".$password." Thank You!";
     sendMsg("Alpha M Ltd","$mobileNumber","$msg");
     
 }
@@ -56,7 +49,7 @@ if (isset($_POST['account'])) {
      <div class="container">
   <div class="row">
     
-    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Create Account</h1></div>
+    <div class="col-lg-12"><h1 style="color:#0B2752;margin-top:20px">Add Teller</h1></div>
   </div>
 </div><br>
 
@@ -70,10 +63,8 @@ if (isset($_POST['account'])) {
 <br>
 
  <div class="row">
-     <div class="col-lg-2">
-    </div>
-    <div class="col-lg-10 mx-auto" style="border:2px">
-        <form action="backend/createAccount.php" method="POST">
+    <div class="col-lg-12 mx-auto" style="border:2px">
+        <form action="#" method="POST">
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">First Name</label>
@@ -87,34 +78,20 @@ if (isset($_POST['account'])) {
             </div>
             <div class="row">
                 <div class="col-lg-4 ">
-                    <label  class="form-label">Date of Birth</label>
-                    <input type="date" name="dateOfBirth" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <label  class="form-label">Email</label>
+                    <input type="email" name="username" class="form-control"  autocomplete="off" required placeholder="Ex: name@gmail.com">
                 </div>
-                <div class="col-lg-4 ">
-                    <label  class="form-label">National Id</label>
-                    <input type="number" name="nationalId" class="form-control" required placeholder="Ex: 11992800...">
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Photo</label>
-                    <input type="file" class="form-control" id="productImage" placeholder="Choose Image" name="fileToUpload" class="file-loading" style="width:auto;"/>
-                </div>
-                <div class="col-lg-4 ">
-                    <label  class="form-label">Address</label>
-                    <input type="text" name="address" class="form-control" required placeholder="Ex: Kigali/Rwanda">
-                </div>
-
-            </div>
-            <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">Mobile Number</label>
-                    <input type="number" name="mobileNumber" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <input type="number" name="mobileNumber" class="form-control"  autocomplete="off" required placeholder="Ex: 078...">
                 </div>
+
+            </div>
+            
+            <div class="row">
                 <br>
-                <div class="col-lg-2"> 
-                    <button style="background-color:#0B2752;color:#fff" name="account" type="submit" class="btn btn-primary">Save Account</button> 
+                <div class="col-lg-4"> 
+                    <button style="background-color:#0B2752;color:#fff" name="account" type="submit" class="btn btn-primary">Save</button> 
                 </div>
 
             </div>
@@ -125,7 +102,7 @@ if (isset($_POST['account'])) {
 </div>
 
 
-      <!-- Advanced Tables -->
+       <!-- Advanced Tables -->
  <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
@@ -133,9 +110,11 @@ if (isset($_POST['account'])) {
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-10">
-                                    Customers
+                                    Tellers
                                 </div>
-                            
+                                <div class="col-lg-2">
+                                <a href="addTeller.php"> <button style="background-color:#0B2752;color:#fff" name="login" type="submit" class="btn btn-primary">Add Teller</button> </a>
+                                </div> 
                             </div>   
                         </div>
                         <div class="panel-body">
@@ -145,13 +124,11 @@ if (isset($_POST['account'])) {
                                
                                     <tr>
                                         <th >#</th>
-                                        <th> Account Number</th>
                                         <th > First Name</th>
                                         <th > Last Name</th>
-                                        <th > National Id</th>
                                         <th > Phone Number</th>
                                         <th >Date</th>
-                                        <th></th>
+                                        
 
                                        
                                     </tr>
@@ -159,34 +136,25 @@ if (isset($_POST['account'])) {
                                 </thead>
                                 <tbody>
                                 <?php   $number =1;
-                                        $customersQuery = "SELECT * FROM `customer`";
-                                        $customersResult = $connect->query($customersQuery);
-                                        while( $data = mysqli_fetch_array($customersResult)){
-                                        $accountNumber = $data['accountNumber'];
+                                        $tellerQuery = "SELECT * FROM `employee` WHERE type = 2";
+                                        $tellerResult = $connect->query($tellerQuery);
+                                        while( $data = mysqli_fetch_array($tellerResult)){
+                                        
                                         $firstName = $data['firstName'];
                                         $lastName = $data['lastName'];
-                                        $nationalId = $data['nationalId'];
-                                        $mobileNumber = $data['mobileNumber'];
+                                        $phoneNumber = $data['phoneNumber'];
                                         $dateTime = $data['dateTime'];
                                         ?>
-                                    <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                    
                                         <tr>
                                             <td><?php echo $number ?></td>
-                                            <td><?php echo $accountNumber ?></td>
                                             <td><?php echo $firstName ?></td>
                                             <td><?php echo $lastName ?></td>
-                                            <td ><?php echo $nationalId ?></td>
-                                            <td><?php echo $mobileNumber ?></td>
+                                            <td><?php echo $phoneNumber	 ?></td>
                                             <td><?php echo $dateTime ?></td>
-                                            <td> 
-                                            <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
-                                                <div class="iconBx">
-                                                    <ion-icon style="font-size:25px" name="eye-outline"></ion-icon>
-                                                </div>
-                                            </a>
-                                            </td>
+                                       
                                         </tr>
-                                    </a>
+                                   
                                  <?php $number++; } ?>
                                 </tbody>
                                 </table>
@@ -195,6 +163,7 @@ if (isset($_POST['account'])) {
                         </div>
                     </div>
                     <!--End Advanced Tables -->
+           
            
 
      </div>

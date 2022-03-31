@@ -1,5 +1,6 @@
 <?php
  session_start();
+ $errors = array();
  
  if($_SESSION['username'] == '')
    { 
@@ -12,7 +13,28 @@ include 'header.php';
 if (isset($_POST['password'])) {
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-    $password2 = $_POST['password3'];
+    $password3 = $_POST['password3'];
+
+    if($password2 != $password3){
+        $errors[] = "New Password does not match ";
+    }
+    else{
+
+        $password = md5($password1);
+        $passwordencry = md5($password2);
+        $query = "SELECT * FROM `employee` WHERE password = '$password' ";
+        $result = $connect->query($query);
+
+        if($result->num_rows >= 1) {
+
+            $query = "UPDATE `employee` SET `password` = '$passwordencry' WHERE `employee`.`id` = '$id' ";
+            $result = $connect->query($query);
+            $errors[] = "Password Changed correctly";
+        }
+        else{
+            $errors[] = "Password not found";
+        }
+    }
 }
 ?>
 
@@ -39,11 +61,11 @@ if (isset($_POST['password'])) {
   </div>
 </div><br>
 
-<?php /*foreach ($errors as $key => $value) {
+<?php foreach ($errors as $key => $value) {
   echo '<div class="alert alert-warning" role="alert">
   <i class="glyphicon glyphicon-exclamation-sign"></i>
-  '.$value.'</div>';                   
-  }*/
+  '.$value.'</div>';                    
+  }
  ?>
 
 <br>
