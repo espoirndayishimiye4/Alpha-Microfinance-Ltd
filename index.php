@@ -69,12 +69,12 @@ if (isset($_POST['login'])) {
     <div class="col-lg-2"> <CENTER><img src="images/logo1.png" alt="logo" srcset=""></CENTER> </div>
     <div class="col-lg-8"><CENTER><h1 style="color:#0B2752;margin-top:30px">BANKING SYSTEM</h1></CENTER></div>
   </div>
-</div><br>
+</div>
 
 <?php foreach ($errors as $key => $value) {
-  echo '<div class="alert alert-warning" role="alert">
-  <i class="glyphicon glyphicon-exclamation-sign"></i>
-  '.$value.'</div>';                    
+  echo '<div class="alert alert-warning" role="alert  ">
+  <center>
+  '.$value.'</center></div>';                    
   }
  ?>
 

@@ -23,10 +23,18 @@ if($type == 2){
     $data = mysqli_fetch_array($creditResult);
     $credit = $data['credit'];
 
+    if($credit == ""){
+        $credit = 0;
+    }
+
     $debitQuery = "SELECT SUM(amount) as debit FROM `transaction` WHERE `type` = 'debit' AND `employeeId` = $id ";
     $debitResult = $connect->query($debitQuery);
     $data = mysqli_fetch_array($debitResult);
     $debit = $data['debit'];
+
+    if($debit == ""){
+        $debit = 0;
+    }
 
     $transactionQuery = "SELECT * FROM `transaction` WHERE `employeeId` = $id ";
     $transactionResult = $connect->query($transactionQuery);

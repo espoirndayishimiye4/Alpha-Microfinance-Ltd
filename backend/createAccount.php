@@ -1,5 +1,7 @@
 <?php
 require_once 'connection.php';
+require_once 'messaging.php';
+error_reporting(0);
 $fileToUpload = array();
     $fName = $_POST['firstName'];
     $lName = $_POST['lastName'];
@@ -7,8 +9,8 @@ $fileToUpload = array();
     $nationalId = $_POST['nationalId'];
     $address = $_POST['address'];
     $mobileNumber = $_POST['mobileNumber'];
-$target_dir = "images/";
-$target_file = $target_dir . basename($_POST["fileToUpload"]["name"]);
+$target_dir = "../images/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -16,10 +18,20 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 if(isset($_POST["account"])) {
 
 
+    $fName = $_POST['firstName'];
+    $lName = $_POST['lastName'];
+    $dateOfBirth = $_POST['dateOfBirth'];
+    $nationalId = $_POST['nationalId'];
+    $address = $_POST['address'];
+    $mobileNumber = $_POST['mobileNumber'];
+
+    $accountNumber = rand(000000,999999);
+
+    $msg="Dear ".$fName." ".$lName." Your Account Number is ".$accountNumber." Thank You!";
+    sendMsg("Alpha M Ltd","$mobileNumber","$msg");
 
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if($check !== false) {
-    echo "File is an image - " . $check["mime"] . ".";
     $uploadOk = 1;
   } else {
     echo "File is not an image.";
@@ -57,12 +69,13 @@ if ($uploadOk == 0) {
 
  //$sql = "INSERT INTO `service` (`image`, `title`, `content`) VALUES ('$img', '$title', '$content')";
  //$result = mysqli_query($connect,$sql)or die("Information is Not Added");
-  echo "<script>
-					alert('Well Done, Now you have a new service')
-					</script>";
-		            // echo "<script>
-		            // window.open('../service.php','_self')
-		            // </script>";	
+ $query = "INSERT INTO `customer` (`accountNumber`, `firstName`, `lastName`, `dateOfBirth`, `nationalId`, `photo`, `address`, `mobileNumber`) 
+    VALUES ('$accountNumber', '$fName', '$lName', '$dateOfBirth', '$nationalId', '$img', '$address', '$mobileNumber')";
+    $result = $connect->query($query);
+
+		            echo "<script>
+		            window.open('../account.php','_self')
+		            </script>";	
 } else {
     echo "Sorry, there was an error uploading your file.";
   }

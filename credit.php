@@ -1,6 +1,6 @@
 <?php
  session_start();
- 
+ error_reporting(0);
  if($_SESSION['username'] == '')
    { 
  header('location:index.php');
@@ -14,6 +14,17 @@ if (isset($_POST['credit'])) {
     $amount = $_POST['amount'];
     $category = 'credit';
 
+    $accQuery = "SELECT * FROM `customer` WHERE `accountNumber` = '$accountNumber'";
+    $accResult = $connect->query($accQuery);
+    $dta = mysqli_fetch_array($accResult);
+    $acc = $dta['accountNumber'];
+
+    if($acc != ""){
+
+        if($amount <= 0){
+            $errors[] = "Not enough money to perform this transaction";
+        } else{
+
     $query = "INSERT INTO `transaction` (`accountNumber`, `type`, `employeeId`, `amount`) 
     VALUES ('$accountNumber', '$category', '$id', '$amount')";
     $result = $connect->query($query);
@@ -25,6 +36,12 @@ if (isset($_POST['credit'])) {
 
     $msg="Dear Customer, Your Account ".$accountNumber." Have been Credited ".$amount." Frw thank you for banking with us!";
     sendMsg("Alpha M Ltd","$mobileNumber","$msg");
+    }
+   }
+    else{
+        $errors[] = "Account Number Not Found";
+    }
+  
 }
 ?>
 
@@ -51,11 +68,11 @@ if (isset($_POST['credit'])) {
   </div>
 </div><br>
 
-<?php /*foreach ($errors as $key => $value) {
-  echo '<div class="alert alert-warning" role="alert">
-  <i class="glyphicon glyphicon-exclamation-sign"></i>
-  '.$value.'</div>';                   
-  }*/
+<?php foreach ($errors as $key => $value) {
+  echo '<div class="alert alert-warning" role="alert  ">
+  <center>
+  '.$value.'</center></div>';                    
+  }
  ?>
 
 <br>
@@ -115,7 +132,7 @@ if (isset($_POST['credit'])) {
                                 </thead>
                                 <tbody>
                                 <?php   $number =1;
-                                        $creQuery = "SELECT * FROM `transaction` ORDER BY `dateTime` DESC;";
+                                        $creQuery = "SELECT * FROM `transaction` ORDER BY `dateTime` DESC";
                                         $creResult = $connect->query($creQuery);
                                         while( $data = mysqli_fetch_array($creResult)){
                                         $accountNumber = $data['accountNumber'];

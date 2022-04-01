@@ -15,11 +15,7 @@ if (isset($_POST['password'])) {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
 
-    if($password2 != $password3){
-        $errors[] = "New Password does not match ";
-    }
-    else{
-
+  
         $password = md5($password1);
         $passwordencry = md5($password2);
         $query = "SELECT * FROM `employee` WHERE password = '$password' ";
@@ -34,7 +30,7 @@ if (isset($_POST['password'])) {
         else{
             $errors[] = "Password not found";
         }
-    }
+    
 }
 ?>
 
@@ -62,27 +58,29 @@ if (isset($_POST['password'])) {
 </div><br>
 
 <?php foreach ($errors as $key => $value) {
-  echo '<div class="alert alert-warning" role="alert">
-  <i class="glyphicon glyphicon-exclamation-sign"></i>
-  '.$value.'</div>';                    
+  echo '<div class="alert alert-warning" role="alert  ">
+  <center>
+  '.$value.'</center></div>';                    
   }
  ?>
 
 <br>
 
  <div class="row">
-    <div class="col-lg-12 mx-auto" style="border:2px">
-        <form action="#" method="POST">
+ <div class="col-lg-1 mx-auto" style="border:2px">
+</div>
+    <div class="col-lg-11 mx-auto" style="border:2px">
+        <form action="#" method="POST" data-parsley-required-message="Field is Required">
             <div class="row">
                 <div class="col-lg-5 mb-4 mt-4">
                     <label  class="form-label">Enter Old Password</label>
                     <input type="password" name="password1" class="form-control"  autocomplete="off" required >
                 
                     <label  class="form-label">Enter New Password</label>
-                    <input type="password" name="password2" class="form-control" required >
-
+                    
+                    <input type="password" name="password2" id="password" minlength="6" data-parsley-type="alphanum" data-parsley-pattern="^(?=.[a-z])(?=.*[0-9])[A-Za-z0-9]+$" class="form-control" required data-parsley-trigger="change focusin" data-toggle="password" >
                     <label  class="form-label">Comfirm New Password</label>
-                    <input type="password" name="password3" class="form-control" required >
+                    <input type="password" name="password3" class="form-control" required data-parsley-equalto="#password" data-parsley-equalto-message="Not equa with above password" data-toggle="password">
                     <br>
                     <button style="background-color:#0B2752;color:#fff" name="password" type="submit" class="btn btn-primary">Change Password</button> 
                 </div>
@@ -137,6 +135,9 @@ if (isset($_POST['password'])) {
 
 
 </body>
+
+
+
 <script src="assets/js/codebase.core.min.js"></script>
 
 <!--
@@ -161,5 +162,14 @@ $(document).ready(function(){
 
 <!-- Page JS Code -->
 <script src="assets/js/pages/db_pop.min.js"></script>
+
+<script src="Parsley/dist/parsley.js"></script>
+<script src="Parsley/dist/parsley.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+   $('form').parsley();
+ })
+</script>
+
 </html>
 <?php } ?>

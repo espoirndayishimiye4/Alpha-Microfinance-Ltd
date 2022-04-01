@@ -63,7 +63,9 @@ if (isset($_POST['account'])) {
 <br>
 
  <div class="row">
-    <div class="col-lg-12 mx-auto" style="border:2px">
+     <div class="col-lg-1 mx-auto" style="border:2px">
+    </div>
+    <div class="col-lg-11 mx-auto" style="border:2px">
         <form action="#" method="POST">
             <div class="row">
                 <div class="col-lg-4 ">
@@ -83,7 +85,7 @@ if (isset($_POST['account'])) {
                 </div>
                 <div class="col-lg-4 ">
                     <label  class="form-label">Mobile Number</label>
-                    <input type="number" name="mobileNumber" class="form-control"  autocomplete="off" required placeholder="Ex: 078...">
+                    <input class="form-control" placeholder="Ex: 078..." required data-parsley-type="digits" data-parsley-length="[10,10]" data-parsley-length-message="please enter 10 digits" data-parsley-type-message="please enter only digits" name="mobileNumber" >
                 </div>
 
             </div>

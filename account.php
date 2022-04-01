@@ -73,7 +73,7 @@ if (isset($_POST['account'])) {
      <div class="col-lg-2">
     </div>
     <div class="col-lg-10 mx-auto" style="border:2px">
-        <form action="backend/createAccount.php" method="POST">
+        <form action="backend/createAccount.php" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">First Name</label>
@@ -92,7 +92,7 @@ if (isset($_POST['account'])) {
                 </div>
                 <div class="col-lg-4 ">
                     <label  class="form-label">National Id</label>
-                    <input type="number" name="nationalId" class="form-control" required placeholder="Ex: 11992800...">
+                    <input class="form-control" placeholder="Ex: 11992800..." required data-parsley-type="digits" data-parsley-length="[16,16]" data-parsley-length-message="please enter 16 digits" data-parsley-type-message="please enter only digits" name="nationalId" >
                 </div>
 
             </div>
@@ -110,7 +110,7 @@ if (isset($_POST['account'])) {
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="form-label">Mobile Number</label>
-                    <input type="number" name="mobileNumber" class="form-control"  autocomplete="off" required placeholder="Ex: 12345">
+                    <input class="form-control" placeholder="Ex: 078..." required data-parsley-type="digits" data-parsley-length="[10,10]" data-parsley-length-message="please enter 10 digits" data-parsley-type-message="please enter only digits" name="mobileNumber" >
                 </div>
                 <br>
                 <div class="col-lg-2"> 
@@ -159,7 +159,7 @@ if (isset($_POST['account'])) {
                                 </thead>
                                 <tbody>
                                 <?php   $number =1;
-                                        $customersQuery = "SELECT * FROM `customer`";
+                                        $customersQuery = "SELECT * FROM `customer`ORDER BY `dateTime` DESC;";
                                         $customersResult = $connect->query($customersQuery);
                                         while( $data = mysqli_fetch_array($customersResult)){
                                         $accountNumber = $data['accountNumber'];
@@ -265,5 +265,13 @@ $(document).ready(function(){
 
 <!-- Page JS Code -->
 <script src="assets/js/pages/db_pop.min.js"></script>
+
+<script src="Parsley/dist/parsley.js"></script>
+<script src="Parsley/dist/parsley.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+   $('form').parsley();
+ })
+</script>
 </html>
 <?php } ?>

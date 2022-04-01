@@ -22,6 +22,7 @@ if (isset($_GET['accNumber'])) {
     $nationalId = $data['nationalId'];
     $mobileNumber = $data['mobileNumber'];
     $address = $data['address'];
+    $photo = $data['photo'];
 
     $crQuery = "SELECT SUM(`amount`) as credit FROM `transaction` WHERE `type` = 'credit' AND `accountNumber` = '$accNumber'";
     $crResult = $connect->query($crQuery);
@@ -75,7 +76,7 @@ if (isset($_GET['accNumber'])) {
                 </div>
                 <div class="col-lg-3 mb-4 mt-4">
                 <div class="card">
-                    <img src="images/logo2.png" alt="Avatar" style="width:100%">
+                    <img src="images/<?php echo $photo; ?>" alt="Avatar" style="width:100%">
                     <div class="container">
                         <h4><b><?php echo $fName." ".$lName; ?></b></h4>
                         <p>Customer</p>

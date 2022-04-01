@@ -78,7 +78,7 @@ include 'header.php';
                                         $mobileNumber = $data['mobileNumber'];
                                         $dateTime = $data['dateTime'];
                                         ?>
-                                    <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
+                                    
                                         <tr>
                                             <td><?php echo $number ?></td>
                                             <td><?php echo $accountNumber ?></td>
@@ -95,7 +95,7 @@ include 'header.php';
                                             </a>
                                             </td>
                                         </tr>
-                                    </a>
+                                    
                                  <?php $number++; } ?>
                                 </tbody>
                                 </table>

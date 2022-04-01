@@ -40,8 +40,9 @@ include 'header.php';
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-10">
-                                    Customers
+                                    Transactions
                                 </div>
+                            
                             </div>   
                         </div>
                         <div class="panel-body">
@@ -52,70 +53,58 @@ include 'header.php';
                                     <tr>
                                         <th >#</th>
                                         <th> Account Number</th>
-                                        <th > First Name</th>
-                                        <th > Last Name</th>
-                                        <th > National Id</th>
-                                        <th > Phone Number</th>
-                                        <th > Balance </th>
+                                        <th > Transaction</th>
+                                        <th > Amout</th>
                                         <th >Date</th>
-                                        <th></th>
+                                        <?php
+                                        if($type == 1){?>
+                                            <th >Perfomed By</th>
+                                        <?php } ?>
+                                        
 
                                        
                                     </tr>
                                     
                                 </thead>
                                 <tbody>
-                                <?php   
-                                        
-                                
-                                        $number =1;
-                                        $customersQuery = "SELECT * FROM `customer`";
-                                        $customersResult = $connect->query($customersQuery);
-                                        while( $data = mysqli_fetch_array($customersResult)){
+                                <?php   $number =1;
+                                        $creQuery = "SELECT * FROM `transaction` ORDER BY `dateTime` DESC";
+                                        $creResult = $connect->query($creQuery);
+                                        while( $data = mysqli_fetch_array($creResult)){
                                         $accountNumber = $data['accountNumber'];
-                                        $firstName = $data['firstName'];
-                                        $lastName = $data['lastName'];
-                                        $nationalId = $data['nationalId'];
-                                        $mobileNumber = $data['mobileNumber'];
+                                        $transaction = $data['type'];
+                                        $amount = $data['amount'];
                                         $dateTime = $data['dateTime'];
+                                        $employeeId = $data['employeeId'];
 
-                                        $crQuery = "SELECT SUM(`amount`) as credit FROM `transaction` WHERE `type` = 'credit' AND `accountNumber` = '$accountNumber'";
-                                        $crResult = $connect->query($crQuery);
-                                        $data = mysqli_fetch_array($crResult);
-                                        $credit = $data['credit'];
-                                        
-                                        $debQuery = "SELECT SUM(`amount`) as debit FROM `transaction` WHERE `type` = 'debit' AND `accountNumber` = '$accountNumber'";
-                                        $debResult = $connect->query($debQuery);
-                                        $data = mysqli_fetch_array($debResult);
-                                        $debit = $data['debit'];
+                                        $idQuery = "SELECT `firstName`,`lastName` FROM `employee` WHERE `id` = $employeeId";
+                                        $idResult = $connect->query($idQuery);
+                                        $dt = mysqli_fetch_array($idResult);
+                                        $fName = $dt['firstName'];
+                                        $lName = $dt['lastName'];
+
                                         ?>
-                                   
+                                        
+                                    
                                         <tr>
                                             <td><?php echo $number ?></td>
                                             <td><?php echo $accountNumber ?></td>
-                                            <td><?php echo $firstName ?></td>
-                                            <td><?php echo $lastName ?></td>
-                                            <td ><?php echo $nationalId ?></td>
-                                            <td><?php echo $mobileNumber ?></td>
-                                            <td><?php echo $credit - $debit; ?></td>
-                                            <td><?php echo $dateTime ?></td>
-                                            <td> 
-                                            <a href="profile.php?accNumber=<?php echo $accountNumber;?>">
-                                                <div class="iconBx">
-                                                    <ion-icon style="font-size:25px" name="eye-outline"></ion-icon>
-                                                </div>
-                                            </a>
-                                            </td>
+                                            <td><?php echo $transaction ?></td>
+                                            <td><?php echo $amount ?></td>
+                                            <td ><?php echo $dateTime ?></td>
+                                            <?php if($type == 1){ ?>
+                                            <td ><?php echo $fName." ".$lName; ?></td>
+                                            <?php } ?>
                                         </tr>
                                     
                                  <?php $number++; } ?>
                                 </tbody>
                                 </table>
                             </div>
-                            
                         </div>
                     </div>
                     <!--End Advanced Tables -->
+           
            
 
      </div>

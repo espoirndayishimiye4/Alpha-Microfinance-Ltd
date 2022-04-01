@@ -46,9 +46,9 @@ if (isset($_POST['confirm'])) {
   </div>
 </div><br>
 <?php foreach ($errors as $key => $value) {
-  echo '<div class="alert alert-warning" role="alert">
-  <i class="glyphicon glyphicon-exclamation-sign"></i>
-  '.$value.'</div>';                    
+  echo '<div class="alert alert-warning" role="alert  ">
+  <center>
+  '.$value.'</center></div>';                    
   }
  ?>
 <br>
@@ -64,6 +64,7 @@ if (isset($_POST['confirm'])) {
         
       
          <button style="background-color:#fff;color:#0B2752" name="confirm" type="submit" class="btn btn-primary">Send SMS</button> 
+         <a href="index.php" style="color:#fff"> Back </a>
 
       </form> 
         <br> 
