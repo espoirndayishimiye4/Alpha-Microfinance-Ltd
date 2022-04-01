@@ -14,27 +14,6 @@ $customerQuery = "SELECT * FROM `customer` WHERE status = 1 ";
 $customerResult = $connect->query($customerQuery);
 $customer = $customerResult->num_rows;
 
-if (isset($_POST['account'])) {
-   
-    $fName = $_POST['firstName'];
-    $lName = $_POST['lastName'];
-    $dateOfBirth = $_POST['dateOfBirth'];
-    $nationalId = $_POST['nationalId'];
-    $photo = $_POST['photo'];
-    $address = $_POST['address'];
-    $mobileNumber = $_POST['mobileNumber'];
-
-    $accountNumber = rand(100000,999999);
-    
-
-    $query = "INSERT INTO `customer` (`accountNumber`, `firstName`, `lastName`, `dateOfBirth`, `nationalId`, `photo`, `address`, `mobileNumber`) 
-    VALUES ('$accountNumber', '$fName', '$lName', '$dateOfBirth', '$nationalId', '$photo', '$address', '$mobileNumber')";
-    $result = $connect->query($query);
-
-    $msg="Dear ".$fName." ".$lName." Your Account Number is ".$accountNumber." Thank You!";
-    sendMsg("Alpha M Ltd","$mobileNumber","$msg");
-    
-}
 ?>
 
 
