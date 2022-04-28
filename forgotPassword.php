@@ -14,10 +14,10 @@ include 'backend/forgotPasswordBack.php';
     <title>Alpha Microfinance Ltd</title>
     <link rel = "icon" href ="images/logo1.png" "image/x-icon">
 </head>
-<body>
+<body style="background-image: url('images/kigali.jpg');background-repeat: no-repeat-y;background-size: cover;">
 <div class="container">
   <div class="row">
-    <div class="col-lg-2"> <CENTER><img src="images/logo1.png" alt="logo" srcset=""></CENTER> </div>
+    <div class="col-lg-2"> <CENTER><img src="images/login.png" alt="logo" srcset=""></CENTER> </div>
     <div class="col-lg-8"><CENTER><h1 style="color:#0B2752;margin-top:30px">BANKING SYSTEM</h1></CENTER></div>
   </div>
 </div><br>
@@ -28,7 +28,7 @@ include 'backend/forgotPasswordBack.php';
   }
  ?>
 <br>
-<div class="container" style="background-color:#0B2752;color:#fff">
+<div class="container" style="background-color:#0B2752;color:#fff;opacity:0.7;">
  <div class="row">
     <div class="col-md-6 mx-auto" style="border:2px">
         <form action="#" method="POST">

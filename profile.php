@@ -92,7 +92,7 @@ include 'backend/profileBack.php';
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-10">
-                                    Customer Transactions
+                                    Customer
                                 </div>
                                 <div class="col-lg-2">
                                 </div> 

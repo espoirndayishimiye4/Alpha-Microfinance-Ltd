@@ -59,7 +59,7 @@ include 'backend/passwordBack.php';
                     
                     <input type="password" name="password2" id="password" minlength="6" data-parsley-type="alphanum" data-parsley-pattern="^(?=.[a-z])(?=.*[0-9])[A-Za-z0-9]+$" class="form-control" required data-parsley-trigger="change focusin" data-toggle="password" >
                     <label  class="form-label">Comfirm New Password</label>
-                    <input type="password" name="password3" class="form-control" required data-parsley-equalto="#password" data-parsley-equalto-message="Not equa with above password" data-toggle="password">
+                    <input type="password" name="password3" class="form-control" required data-parsley-equalto="#password" data-parsley-equalto-message="Passwords do not match" data-toggle="password">
                     <br>
                     <button style="background-color:#0B2752;color:#fff" name="password" type="submit" class="btn btn-primary">Change Password</button> 
                 </div>

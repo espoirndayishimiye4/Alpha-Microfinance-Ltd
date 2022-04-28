@@ -218,5 +218,12 @@ $(document).ready(function(){
 
 <!-- Page JS Code -->
 <script src="assets/js/pages/db_pop.min.js"></script>
+<script src="Parsley/dist/parsley.js"></script>
+<script src="Parsley/dist/parsley.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+   $('form').parsley();
+ })
+</script>
 </html>
 <?php } ?>
